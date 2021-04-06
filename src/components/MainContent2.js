@@ -15,13 +15,30 @@ class MainContent extends Component {
 
   constructor() {
     super();
-    this.state = { data: [] };
+    this.state = { 
+      data: [
+        {
+          name: "Messenger Beer BOT",
+          description: "Beer BOT provides information on beer for everyone — the craft beer rookies, for experts who search for inspiration, and for those who want to discover new tastes. To begin your interaction with Beer Bot, just click on Get Started.",
+          html_url: "https://m.me/messengerbeerbot/",
+          card_type: "chatbot"
+        }
+      ] 
+    };
   }
 
   componentDidMount() {
     fetch(`https://api.github.com/users/eduandrade/repos`)
       .then(res => res.json())
-      .then(json => this.setState({ data: json }));
+      .then(json => {
+        let arr = this.state.data;
+        arr.push(...json);
+        this.setState({ data: arr })
+      });
+  }
+
+  getCardType(type) {
+    return type || "repository";
   }
 
   render() {
@@ -50,25 +67,15 @@ class MainContent extends Component {
 
           <div className="row mt-5 justify-content-center">
 
-            <div className="card card-custom mx-2 mb-3" style={{ maxWidth: "18rem" }}>
-              <div className="card-header"><strong>Messenger Beer BOT</strong><br/><span className="badge badge-secondary m-1">chatbot</span></div>
-              <div className="card-body">
-                <p className="card-text">Beer BOT provides information on beer for everyone — the craft beer rookies, for experts who search for inspiration, and for those who want to discover new tastes. To begin your interaction with Beer Bot, just click on Get Started.</p>
-              </div>
-              <div className="card-footer">
-                <a className="btn btn-primary btn-sm" href="https://m.me/messengerbeerbot/" target="_blank" rel="noopener noreferrer">View chatbot &raquo;</a>
-              </div>
-            </div>
-
             {this.state.data.map(el => (
 
-              <div className="card card-custom mx-2 mb-3" style={{ width: "18rem" }}>
-                <div className="card-header"><strong>{el.name}</strong><br/><span className="badge badge-secondary m-1">repository</span></div>
+              <div className="card card-custom mx-2 mb-3" style={{ width: "18rem" }} key={el.name}>
+                <div className="card-header"><strong>{el.name}</strong><br/><span className="badge badge-secondary m-1">{this.getCardType(el.card_type)}</span></div>
                 <div className="card-body">
                   <p className="card-text">{el.description}</p>
                 </div>
                 <div className="card-footer">
-                  <a className="btn btn-primary btn-sm" href={el.html_url} target="_blank" rel="noopener noreferrer">View repository &raquo;</a>    
+                  <a className="btn btn-primary btn-sm" href={el.html_url} target="_blank" rel="noopener noreferrer">View {this.getCardType(el.card_type)} &raquo;</a>    
                 </div>
               </div>
 
