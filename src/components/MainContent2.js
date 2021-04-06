@@ -29,7 +29,7 @@ class MainContent extends Component {
     return (
       <main className="text-dark">
 
-        <div className="d-flex p-1 bg-warning justify-content-center">
+        <div className="d-flex p-1 justify-content-center bg-light">
           <div>
             <div className="display-3 p-1 text-center">Hello, world!</div>
             <p>I'm Eduardo Andrade, a software developer for more than 15 years and this is my personal website, created using <span className="badge badge-info">React</span>, <span className="badge badge-info">Bootstrap 4</span> and <span className="badge badge-info">GitHub API</span>.</p>
@@ -46,7 +46,7 @@ class MainContent extends Component {
           </div>
         </div>
 
-        <div className="container-fluid p-3">
+        <div className="container-fluid p-3 bg-light">
 
           <div className="row mt-5 justify-content-center">
 
